@@ -1,0 +1,21 @@
+name: backend-tests
+on:
+    push:
+    pull_request:
+        
+jobs:
+    run-tests:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./backend
+        steps:
+            - name: Initializating repository
+              uses: actions/checkout@v7
+            - name: Setup Go
+              uses: actions/setup-go@v6
+              with:
+                go-version-file: ./backend/go.mod
+                cache: true
+            - name: Run tests
+              run: go test ./...
